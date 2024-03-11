@@ -1,7 +1,9 @@
-[gd_scene load_steps=41 format=3 uid="uid://dwkrdwhaok1pa"]
+[gd_scene load_steps=43 format=3 uid="uid://dwkrdwhaok1pa"]
 
 [ext_resource type="Texture2D" uid="uid://snkix5lsfdn2" path="res://models/atlas_texture.png" id="1_b38ir"]
 [ext_resource type="Script" path="res://characters/script/main_character.gd" id="1_x2ic6"]
+[ext_resource type="Script" path="res://characters/script/chracter_body.gd" id="2_g8wub"]
+[ext_resource type="Script" path="res://characters/script/spring_arm_off_set.gd" id="4_7pa3m"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_syhih"]
 radius = 1.0
@@ -10262,8 +10264,11 @@ _spring_arm_offset = NodePath("SpringArmOffset")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 shape = SubResource("CapsuleShape3D_syhih")
 
-[node name="Panda" type="Node3D" parent="."]
+[node name="Panda" type="Node3D" parent="." node_paths=PackedStringArray("_character", "_animation")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.459305, 0.119853, 0.0186767)
+script = ExtResource("2_g8wub")
+_character = NodePath("..")
+_animation = NodePath("AnimationPlayer")
 
 [node name="CharacterArmature" type="Node3D" parent="Panda"]
 
@@ -10594,7 +10599,9 @@ libraries = {
 "": SubResource("AnimationLibrary_vp3w6")
 }
 
-[node name="SpringArmOffset" type="Node3D" parent="."]
+[node name="SpringArmOffset" type="Node3D" parent="." node_paths=PackedStringArray("_spring_arm")]
+script = ExtResource("4_7pa3m")
+_spring_arm = NodePath("SpringArm")
 
 [node name="SpringArm" type="SpringArm3D" parent="SpringArmOffset"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
